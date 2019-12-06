@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '11.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'JoseApp' do
@@ -34,6 +34,8 @@ target 'JoseApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'react-native-jose', :path => '../node_modules/@egendata/react-native-jose'
+
   target 'JoseAppTests' do
     inherit! :search_paths
     # Pods for testing
@@ -50,4 +52,16 @@ target 'JoseApp-tvOS' do
     # Pods for testing
   end
 
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'react-native-jose'
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      end
+    end
+
+  end
 end

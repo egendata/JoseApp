@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "__prestart": "node setup/generateKeys",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -12,19 +13,35 @@
   "dependencies": {
     "@egendata/react-native-jose": "file:../react-native-jose/egendata-react-native-jose-0.4.0.tgz",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "^0.61.5"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
+    "detox": "^14.8.5",
+    "detox-getprops": "^0.1.1",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
+    "jose": "^1.16.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "react-test-renderer": "16.9.0"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/JoseApp/Build/Products/Debug-iphonesimulator/JoseApp.app",
+        "build": "xcodebuild -workspace ios/JoseApp.xcworkspace -scheme JoseApp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build/JoseApp",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 11 Pro"
+        }
+      }
+    },
+    "test-runner": "jest"
   }
 }
