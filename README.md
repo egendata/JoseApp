@@ -1,3 +1,5 @@
+App for running Jose things without the other dependencies and uses Detox for running tests on the simulator 
+
 - Install [Detox](https://github.com/wix/Detox/blob/master/docs/Introduction.GettingStarted.md#step-1-install-dependencies)
 
 - Clone [react-native-jose](git@github.com:egendata/react-native-jose.git)
