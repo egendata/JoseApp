@@ -1,4 +1,4 @@
-App for running Jose things without the other dependencies and uses Detox for running tests on the simulator 
+App for running Jose things without the other dependencies and uses Detox for running tests on the simulator
 
 - Install [Detox](https://github.com/wix/Detox/blob/master/docs/Introduction.GettingStarted.md#step-1-install-dependencies)
 
@@ -15,12 +15,24 @@ App for running Jose things without the other dependencies and uses Detox for ru
   cd ios && pod install && cd ..
   ```
 
-- Build the app
+- Build the app for iOS
   ```bash
-  detox build
+  detox build -c ios
   ```
 
-- Run the tests
+- Build the app for Android
   ```bash
-  detox test
+  detox build -c android
+  ```
+
+- Create a simulator for Android in AVD Manager and name it `Detox_Test` (what type of device it is shouldn't matter I think) and use at least Android version 28
+
+- Run the tests for iOS
+  ```bash
+  detox test -c ios
+  ```
+
+- Run the tests for Android
+  ```bash
+  detox test -c android
   ```

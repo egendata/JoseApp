@@ -136,6 +136,8 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     splits {
         abi {
@@ -179,6 +181,14 @@ android {
 
         }
     }
+
+    configurations.all {
+        resolutionStrategy {
+            // TODO: Line below required for Detox since version 12.5
+            //   It should removed as soon as the project compiles without it
+            force 'androidx.annotation:annotation:1.0.0'
+        }
+    }
 }
 
 dependencies {
@@ -192,7 +202,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    androidTestImplementation('com.wix:detox:+') { transitive = true }
+    androidTestImplementation 'junit:junit:4.12'
 }
 
 // Run this once to be able to run the application with BUCK
