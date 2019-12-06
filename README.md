@@ -2,7 +2,7 @@ App for running Jose things without the other dependencies and uses Detox for ru
 
 - Install [Detox](https://github.com/wix/Detox/blob/master/docs/Introduction.GettingStarted.md#step-1-install-dependencies)
 
-- Clone [react-native-jose](git@github.com:egendata/react-native-jose.git)
+- Clone [react-native-jose](https://github.com/egendata/react-native-jose/tree/feat/encryption-with-jwk)
 
 - Go to `react-native-jose` folder and use [feat/encryption](https://github.com/egendata/react-native-jose/tree/feat/encryption-with-jwk) branch and then run:
   ```bash
