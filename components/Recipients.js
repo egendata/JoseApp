@@ -27,13 +27,12 @@ export default () => {
       <Text style={styles.sectionDescription}>Keys:</Text>
       <FlatList
         data={Object.values(value.keys)}
-        renderItem={({item}) => <Item item={item.jwk} />}
-        keyExtractor={item => item.jwk.kid}
+        renderItem={({item}) => <Item item={item.publicJwk} />}
+        keyExtractor={item => item.publicJwk.kid}
       />
       <TextInput
         testID="servicesInput"
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        value={JSON.stringify(value.keys)}
         onChangeText={text => {
           try {
             const newKeys = JSON.parse(text);

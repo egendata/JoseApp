@@ -14,15 +14,15 @@ describe('JWE', () => {
 
     it('should not allow CV Search service to decrypt the JWE initially', async () => {
       const props = await getProps(element(by.id('recipientsInput')))
-      const inputValue = props['AX.value']
-      const newJwe = JSON.parse(inputValue)
+      const inputValue = props['AX.value'] || props['text']
+      const newJwe = JSON.parse(inputValue.replace(/\\/g, ''))
 
       assert.equal(
-        JWE.decrypt(newJwe, keys.owner.jwk).toString('utf8'),
+        JWE.decrypt(newJwe, keys.owner.publicJwk).toString('utf8'),
         message,
       )
-      assert.equal(JWE.decrypt(newJwe, keys.cv.jwk).toString('utf8'), message)
-      assert.throws(JWE.decrypt.bind(JWE, newJwe, keys.cvSearch.jwk), {
+      assert.equal(JWE.decrypt(newJwe, keys.cv.publicJwk).toString('utf8'), message)
+      assert.throws(JWE.decrypt.bind(JWE, newJwe, keys.cvSearch.publicJwk), {
         name: 'JWEDecryptionFailed',
         message: 'decryption operation failed',
       })
@@ -32,16 +32,16 @@ describe('JWE', () => {
       await element(by.id('addCvSearchRecipientBtn')).tap()
 
       const props = await getProps(element(by.id('recipientsInput')))
-      const inputValue = props['AX.value']
-      const newJwe = JSON.parse(inputValue)
+      const inputValue = props['AX.value'] || props['text']
+      const newJwe = JSON.parse(inputValue.replace(/\\/g, ''))
 
       assert.equal(
-        JWE.decrypt(newJwe, keys.owner.jwk).toString('utf8'),
+        JWE.decrypt(newJwe, keys.owner.publicJwk).toString('utf8'),
         message,
       )
-      assert.equal(JWE.decrypt(newJwe, keys.cv.jwk).toString('utf8'), message)
+      assert.equal(JWE.decrypt(newJwe, keys.cv.publicJwk).toString('utf8'), message)
       assert.equal(
-        JWE.decrypt(newJwe, keys.cvSearch.jwk).toString('utf8'),
+        JWE.decrypt(newJwe, keys.cvSearch.publicJwk).toString('utf8'),
         message,
       )
     })

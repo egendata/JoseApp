@@ -1,5 +1,5 @@
-const {generateKeyPairSync} = require('crypto');
-const {JWE, JWK} = require('jose');
+const {generateKeyPairSync} = require('crypto')
+const {JWE, JWK} = require('jose')
 
 const generateKey = () => {
   return generateKeyPairSync('rsa', {
@@ -12,37 +12,45 @@ const generateKey = () => {
       type: 'pkcs1',
       format: 'pem',
     },
-  });
-};
+  })
+}
 const asJwk = (privateKey, jwks) => {
-  const jwk = JWK.asKey(privateKey, {use: 'enc'}).toJWK(true);
-  return JWK.asKey({
+  const jwk = JWK.asKey(privateKey, {use: 'enc'}).toJWK(true)
+  const jwkKey = JWK.asKey({
     ...jwk,
     kid: `${jwks}/${jwk.kid}`,
-  });
-};
+  })
 
-const ownerKey = generateKey();
-const cvKey = generateKey();
-const cvSearchKey = generateKey();
+  return {
+    privateJwk: jwkKey.toJWK(true),
+    publicJwk: jwkKey
+  }
+}
+
+const ownerKey = generateKey()
+const cvKey = generateKey()
+const cvSearchKey = generateKey()
 
 export const keys = {
   owner: {
-    jwk: asJwk(ownerKey.privateKey, 'egendata://jwks'),
+    ...asJwk(ownerKey.privateKey, 'egendata://jwks'),
     ...ownerKey,
   },
   cv: {
-    jwk: asJwk(cvKey.privateKey, 'https://cvservice.com/jwks'),
+    ...asJwk(cvKey.privateKey, 'https://cvservice.com/jwks'),
     ...cvKey,
   },
   cvSearch: {
-    jwk: asJwk(cvSearchKey.privateKey, 'https://cvsearchservice.org/jwks'),
+    ...asJwk(cvSearchKey.privateKey, 'https://cvsearchservice.org/jwks'),
     ...cvSearchKey,
   },
-};
-export const message = 'This is really secret';
-const encryptor = new JWE.Encrypt(message);
-encryptor.recipient(keys.owner.jwk, {kid: keys.owner.jwk.kid});
-encryptor.recipient(keys.cv.jwk, {kid: keys.cv.jwk.kid});
+}
 
-export const jwe = encryptor.encrypt('general');
+export const message = 'This is really secret'
+const encryptor = new JWE.Encrypt(message)
+encryptor.recipient(keys.owner.publicJwk, {kid: keys.owner.publicJwk.kid})
+encryptor.recipient(keys.cv.publicJwk, {kid: keys.cv.publicJwk.kid})
+
+export const jwe = encryptor.encrypt('general')
+
+
