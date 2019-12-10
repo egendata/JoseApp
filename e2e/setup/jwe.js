@@ -23,7 +23,7 @@ const asJwk = (privateKey, jwks) => {
 
   return {
     privateJwk: jwkKey.toJWK(true),
-    publicJwk: jwkKey
+    publicJwk: jwkKey,
   }
 }
 
@@ -52,5 +52,3 @@ encryptor.recipient(keys.owner.publicJwk, {kid: keys.owner.publicJwk.kid})
 encryptor.recipient(keys.cv.publicJwk, {kid: keys.cv.publicJwk.kid})
 
 export const jwe = encryptor.encrypt('general')
-
-

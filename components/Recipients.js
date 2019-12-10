@@ -1,25 +1,18 @@
-import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  Button,
-  View,
-  TextInput,
-  FlatList,
-} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {addCvSearchRecipient} from '../services/recipients';
-let keys = {};
-let jwe = {recipients: []};
+import React from 'react'
+import {Text, StyleSheet, Button, View, TextInput, FlatList} from 'react-native'
+import {Colors} from 'react-native/Libraries/NewAppScreen'
+import {addCvSearchRecipient} from '../services/recipients'
+let keys = {}
+let jwe = {recipients: []}
 export default () => {
-  const [value, setValue] = React.useState({keys, jwe});
+  const [value, setValue] = React.useState({keys, jwe})
 
   function Item({item}) {
     return (
       <View style={styles.item}>
         <Text style={styles.title}>KID: {item.kid}</Text>
       </View>
-    );
+    )
   }
 
   return (
@@ -35,11 +28,11 @@ export default () => {
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         onChangeText={text => {
           try {
-            const newKeys = JSON.parse(text);
-            keys = newKeys;
-            setValue({keys, jwe});
+            const newKeys = JSON.parse(text)
+            keys = newKeys
+            setValue({keys, jwe})
           } catch (ex) {
-            console.log('bad JSON');
+            console.log('bad JSON')
           }
         }}
       />
@@ -56,11 +49,11 @@ export default () => {
         value={JSON.stringify(value.jwe)}
         onChangeText={text => {
           try {
-            const newJwe = JSON.parse(text);
-            jwe = newJwe;
-            setValue({keys, jwe});
+            const newJwe = JSON.parse(text)
+            jwe = newJwe
+            setValue({keys, jwe})
           } catch (ex) {
-            console.log('bad JSON');
+            console.log('bad JSON')
           }
         }}
       />
@@ -68,12 +61,12 @@ export default () => {
         title="Add CV Search to recipients"
         testID="addCvSearchRecipientBtn"
         onPress={async () => {
-          setValue({keys, jwe: await addCvSearchRecipient({ keys, jwe })});
+          setValue({keys, jwe: await addCvSearchRecipient({keys, jwe})})
         }}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -125,4 +118,4 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
-});
+})

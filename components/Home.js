@@ -18,6 +18,7 @@ export default class HomeScreen extends React.Component {
         />
         <Button
           title="Signing"
+          testID="navigate-signing-btn"
           onPress={() => navigate('Signing')}
         />
       </>
