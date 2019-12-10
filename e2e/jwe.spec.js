@@ -7,6 +7,8 @@ describe('JWE', () => {
   describe('Add Recipients', () => {
     beforeEach(async () => {
       await device.reloadReactNative()
+      await expect(element(by.id('navigate-jwe-btn'))).toBeVisible()
+      await element(by.id('navigate-jwe-btn')).tap()
       await expect(element(by.id('recipientsView'))).toBeVisible()
       await element(by.id('servicesInput')).replaceText(JSON.stringify(keys))
       await element(by.id('recipientsInput')).replaceText(JSON.stringify(jwe))

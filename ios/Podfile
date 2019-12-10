@@ -35,7 +35,8 @@ target 'JoseApp' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'react-native-jose', :path => '../node_modules/@egendata/react-native-jose'
-
+  pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
+  
   target 'JoseAppTests' do
     inherit! :search_paths
     # Pods for testing

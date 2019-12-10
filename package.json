@@ -12,7 +12,10 @@
   "dependencies": {
     "@egendata/react-native-jose": "file:../react-native-jose/egendata-react-native-jose-0.4.0.tgz",
     "react": "16.9.0",
-    "react-native": "^0.61.5"
+    "react-native": "^0.61.5",
+    "react-native-gesture-handler": "^1.5.2",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
