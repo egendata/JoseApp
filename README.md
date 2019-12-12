@@ -1,5 +1,7 @@
 App for running Jose things without the other dependencies and uses Detox for running tests on the simulator
 
+## Instructions
+
 - Install [Detox](https://github.com/wix/Detox/blob/master/docs/Introduction.GettingStarted.md#step-1-install-dependencies)
 
 - Clone [react-native-jose](https://github.com/egendata/react-native-jose/tree/feat/encryption-with-jwk)
@@ -36,3 +38,16 @@ App for running Jose things without the other dependencies and uses Detox for ru
   ```bash
   detox test -c android
   ```
+
+### Troubleshooting
+
+Error:
+
+```bash
+/Users/<WHOEVER YOU ARE>/Library/Detox/ios/fa6c43c4cc884a5c2fbfb38206892ed97480bf32/Detox.framework could not be found, this means either you changed a version of Xcode or Detox postinstall script was unsuccessful.
+```
+
+Fix:
+```bash
+detox rebuild-framework-cache
+```
